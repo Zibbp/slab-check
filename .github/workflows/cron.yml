@@ -1,0 +1,17 @@
+name: Check stocks & notify
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
+
+jobs:
+  check-stocks-and-notify:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+    - run: npm i
+    - run: node index.js
+      env:
+        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
